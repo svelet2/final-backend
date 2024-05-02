@@ -1,28 +1,10 @@
 services:
-  demo-database:
+  guitars-database:
     image: postgres:alpine
-    container_name: demo-database
+    container_name: flowers-database
     ports:
       - "6001:5432"
     environment:
       POSTGRES_USERNAME: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: mercedes
       POSTGRES_DB: spring-2024
-
-  database-demo-service:
-    image: database-demo-service
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: database-demo-service
-    ports:
-      - "6002:8085"
-    environment:
-      - server.port=8085
-      - spring.datasource.url=jdbc:postgresql://demo-database:5432/spring-2024
-      - spring.datasource.username=postgres
-      - spring.datasource.password=password
-    restart: "no"
-    depends_on:
-      - demo-database
-

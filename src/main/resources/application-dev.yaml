@@ -2,8 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:6001/spring-2024
     username: postgres
-    password: password
-
+    password: mercedes
 
   jpa:
     hibernate:
@@ -13,24 +12,3 @@ spring:
   sql:
     init:
       mode: always
-
-
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: TRACE
-        orm:
-          jdbc:
-            bind: TRACE
-
-
-
-
-
-
-
-
-
-
-

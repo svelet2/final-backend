@@ -51,7 +51,7 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(orders);
     }
 
-    @PostMapping
+    @PostMapping("/search")
     public ResponseEntity<List<Order>> search(@RequestBody Order order) {
         String username = getTheCurrentLoggedInCustomer();
         System.out.println(username);
@@ -61,6 +61,23 @@ public class OrderController {
         Example<Order> example = Example.of(order);
         List<Order> orders = (List<Order>) orderRepository.findAll(example);
         return ResponseEntity.status(HttpStatus.OK).body(orders);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Order> findByCustomerId(@PathVariable int id) {
+        String username = getTheCurrentLoggedInCustomer();
+        System.out.println(username);
+        if(username.trim().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        Order order = orderRepository.findById(id).orElse(null);
+        if(order == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        if(!order.getCustomerUserName().equalsIgnoreCase(username)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(order);
     }
 
 
