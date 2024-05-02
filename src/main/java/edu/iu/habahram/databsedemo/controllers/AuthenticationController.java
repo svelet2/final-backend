@@ -37,6 +37,7 @@ public class AuthenticationController {
         }
     }
 
+
     @PostMapping("/login")
     public String login(@RequestBody Customer customer) {
         Authentication authentication = authenticationManager
